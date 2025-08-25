@@ -1,4 +1,4 @@
-'use client'
+
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -51,23 +51,12 @@ function Button({
   }) {
   const Comp = asChild ? Slot : "button"
 
-    const handleFocus = (e: React.FocusEvent<HTMLButtonElement>) => {
-    const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-    if (isTouchDevice) {
-      setTimeout(() => {
-        e.target.blur();
-      }, 500);
-    }
-
-    if (props.onFocus) props.onFocus(e);
-  };
 
   return (
     <Comp
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
-      onFocus={handleFocus}
     />
   )
 }
