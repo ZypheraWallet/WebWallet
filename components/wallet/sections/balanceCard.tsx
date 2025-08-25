@@ -11,7 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Eye, EyeClosed } from 'lucide-react';
 
-const balanceCard = () => {
+const BalanceCard = () => {
     const [balanceHidden, setHiddenBalance] = useState<boolean>(false);
 
     return (
@@ -44,4 +44,4 @@ const balanceCard = () => {
     );
 };
 
-export default balanceCard;
+export default BalanceCard;

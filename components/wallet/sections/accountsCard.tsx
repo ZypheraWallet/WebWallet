@@ -9,7 +9,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Users, Wallet, Wallet2 } from 'lucide-react';
 
-const accountsCard = () => {
+const AccountsCard = () => {
     return (
         <Card className='lg:w-1/2 h-max max-lg:bg-card/20 max-lg:border-0 max-lg:shadow-none max-lg:py-0'>
             <CardHeader className='max-lg:hidden'>
@@ -65,4 +65,4 @@ const accountsCard = () => {
     );
 };
 
-export default accountsCard;
+export default AccountsCard;

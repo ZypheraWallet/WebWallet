@@ -8,7 +8,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Plus, QrCode, Send } from 'lucide-react';
 
-const fastAction = () => {
+const FastAction = () => {
     return (
         <Card className='lg:w-1/3 max-lg:bg-card/0 max-lg:border-0 max-lg:shadow-none'>
             <CardHeader className='max-lg:hidden'>
@@ -33,4 +33,4 @@ const fastAction = () => {
     );
 };
 
-export default fastAction;
+export default FastAction;
