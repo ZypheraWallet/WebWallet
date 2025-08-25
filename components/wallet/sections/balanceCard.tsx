@@ -20,7 +20,7 @@ const BalanceCard = () => {
     const { intPart, fracPart, full } = formatBalanceParts(balance);
     
     return (
-        <Card className='w-full max-lg:bg-card/0 max-lg:border-0 max-lg:shadow-none'>
+        <Card className='w-full max-lg:bg-card/0 max-lg:border-0 max-lg:shadow-none overflow-hidden'>
             <CardHeader className='max-lg:items-center flex justify-between w-full'>
                 <CardTitle className='max-lg:hidden'>Баланс</CardTitle>
                 <CardTitle className='max-lg:text-2xl font-mono lg:hidden'>Zyphera <span className='text-sm opacity-80'>Beta</span></CardTitle>

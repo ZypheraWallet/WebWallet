@@ -16,9 +16,6 @@ const HistoryCard = () => {
         <Card className="lg:w-1/3 rounded-2xl max-lg:bg-card/50 shadow-sm border border-border backdrop-blur">
             <CardHeader>
                 <CardTitle>Операции</CardTitle>
-                {/* <CardAction>
-                    <Button variant={'link'} size={'sm'}><History />Все операции</Button>
-                </CardAction> */}
             </CardHeader>
             <CardContent className='grid grid-cols-2 2xl:grid-cols-3 gap-3 justify-between'>
                 <div className='w-full max-lg:col-span-2 bg-accent rounded-xl p-3 space-y-2 max-lg:block max-2xl:hidden'>
