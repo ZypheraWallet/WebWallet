@@ -43,11 +43,12 @@ const Navbar = () => {
                 </div>
             </nav>
             <nav className="px-3 flex items-center h-full justify-between lg:hidden">
-                <Link href={'/'}></Link>
-                <Button variant="ghost" className="flex-col text-[10px] gap-1">
-                    <Home />
-                    Главная
-                </Button>
+                <Link href={'/'}>
+                    <Button variant="ghost" className="flex-col text-[10px] gap-1">
+                        <Home />
+                        Главная
+                    </Button>
+                </Link>
                 <Link href={'/payments'}>
                     <Button variant="ghost" className="flex-col text-[10px] gap-1">
                         <Wallet />
