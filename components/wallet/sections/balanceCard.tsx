@@ -40,9 +40,9 @@ const BalanceCard = () => {
                 </CardAction>
             </CardHeader>
             <CardContent className='w-full max-lg:mt-9'>
-                <div className='lg:text-8xl text-5xl max-lg:text-center font-mono space-y-3'>
+                <div className='max-lg:text-center font-mono space-y-3'>
                     <p className='text-muted-foreground text-xs lg:hidden'>Доступный баланс</p>
-                    <span className={`duration-500 ${showBalance ? '' : 'blur-md lg:blur-xl'}`}>{intPart},<span className='text-4xl lg:text-6xl'>{fracPart}₽</span></span>
+                    <span className={`duration-500 lg:text-8xl ${balance >= 1000000 ? 'text-4xl' : 'text-5xl'} ${showBalance ? '' : 'blur-md lg:blur-xl'}`}>{intPart},<span className='text-4xl lg:text-6xl'>{fracPart}₽</span></span>
                 </div>
             </CardContent>
         </Card>

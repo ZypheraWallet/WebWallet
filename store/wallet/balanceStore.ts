@@ -12,7 +12,7 @@ interface BalanceStore {
 }
 
 export const useBalanceStore = create<BalanceStore>((set) => ({
-  balance: 53295.54,
+  balance: 12345.6789,
   showBalance: true,
 
   deposit: (amount) => set((state) => ({ balance: state.balance + amount })),
