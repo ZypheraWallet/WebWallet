@@ -21,7 +21,7 @@ const BalanceCard = () => {
                 <CardTitle className='max-lg:text-2xl font-mono lg:hidden'>Zyphera <span className='text-sm opacity-80'>Beta</span></CardTitle>
                 <CardAction>
                     <Button
-                        variant={'ghost'}
+                        variant={'outline'}
                         size={'icon'}
                         onClick={() => { setHiddenBalance(!balanceHidden) }}
                     >
