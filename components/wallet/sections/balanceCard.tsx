@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Card,
     CardContent,
@@ -9,11 +9,16 @@ import {
     CardAction
 } from "@/components/ui/card"
 import { Button } from '@/components/ui/button';
+
 import { Eye, EyeClosed } from 'lucide-react';
 
-const BalanceCard = () => {
-    const [balanceHidden, setHiddenBalance] = useState<boolean>(false);
+import { useBalanceStore } from '@/store/wallet/balanceStore';
+import { formatBalanceParts } from '@/utils/formatBalance';
 
+const BalanceCard = () => {
+    const { balance, showBalance, toggleBalanceVisibility } = useBalanceStore();
+    const { intPart, fracPart, full } = formatBalanceParts(balance);
+    
     return (
         <Card className='w-full max-lg:bg-card/0 max-lg:border-0 max-lg:shadow-none'>
             <CardHeader className='max-lg:items-center flex justify-between w-full'>
@@ -23,13 +28,13 @@ const BalanceCard = () => {
                     <Button
                         variant={'outline'}
                         size={'icon'}
-                        onClick={() => { setHiddenBalance(!balanceHidden) }}
+                        onClick={toggleBalanceVisibility}
                     >
                         {
-                            balanceHidden ?
-                                <EyeClosed />
-                                :
+                            showBalance ?
                                 <Eye />
+                                :
+                                <EyeClosed />
                         }
                     </Button>
                 </CardAction>
@@ -37,7 +42,7 @@ const BalanceCard = () => {
             <CardContent className='w-full max-lg:mt-9'>
                 <div className='lg:text-8xl text-5xl max-lg:text-center font-mono space-y-3'>
                     <p className='text-muted-foreground text-xs lg:hidden'>Доступный баланс</p>
-                    {balanceHidden? "•••••" : <span>50.000,<span className='text-4xl lg:text-6xl'>09₽</span></span>}
+                    <span className={`duration-500 ${showBalance ? '' : 'blur-md lg:blur-xl'}`}>{intPart},<span className='text-4xl lg:text-6xl'>{fracPart}₽</span></span>
                 </div>
             </CardContent>
         </Card>

@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import {
     Card,
@@ -7,9 +8,14 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { Button } from '@/components/ui/button';
+
 import { Users, Wallet, Wallet2 } from 'lucide-react';
 
+import { useBalanceStore } from '@/store/wallet/balanceStore';
+
 const AccountsCard = () => {
+    const { showBalance } = useBalanceStore();
+
     return (
         <Card className='lg:w-2/3 h-max max-lg:bg-card/20 max-lg:border-0 max-lg:shadow-none max-lg:py-0'>
             <CardHeader className='max-lg:hidden'>
@@ -25,15 +31,15 @@ const AccountsCard = () => {
                             <Wallet />
                         </div>
                         <div>
-                            <p className='font-medium text-sm'>Main Wallet</p>
+                            <p className='font-medium text-sm truncate'>Main Wallet</p>
                             <p className='text-xs text-muted-foreground'>TON кошелёк</p>
                         </div>
                     </div>
                     <div className='flex flex-col items-end'>
-                        <p className='text-sm'>
-                            40.000,00₽
+                        <p className={`${showBalance? '' : 'blur-xs'} duration-500 text-sm`}>
+                            400.000,00₽
                         </p>
-                        <p className='text-xs text-muted-foreground'>
+                        <p className={`${showBalance? '' : 'blur-xs'} duration-500 text-sm text-muted-foreground`}>
                             50 TON
                         </p>
                     </div>
@@ -50,11 +56,11 @@ const AccountsCard = () => {
                         </div>
                     </div>
                     <div className='flex flex-col items-end'>
-                        <p className='text-sm'>
+                        <p className={`${showBalance? '' : 'blur-xs'} duration-500 text-sm`}>
                             10.000,00₽
                         </p>
-                        <p className='text-xs text-muted-foreground'>
-                            50 TON
+                        <p className={`${showBalance? '' : 'blur-xs'} duration-500 text-sm text-muted-foreground`}>
+                            10 TON
                         </p>
                     </div>
                     
