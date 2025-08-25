@@ -2,7 +2,7 @@
 import React from 'react';
 import { useBalanceStore } from '@/store/wallet/balanceStore';
 import { Button } from '@/components/ui/button';
-const page = () => {
+const Page = () => {
     const { balance, deposit } = useBalanceStore();
 
     return (
@@ -15,4 +15,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Page;

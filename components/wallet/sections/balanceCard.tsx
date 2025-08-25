@@ -17,7 +17,7 @@ import { formatBalanceParts } from '@/utils/formatBalance';
 
 const BalanceCard = () => {
     const { balance, showBalance, toggleBalanceVisibility } = useBalanceStore();
-    const { intPart, fracPart, full } = formatBalanceParts(balance);
+    const { intPart, fracPart } = formatBalanceParts(balance);
     
     return (
         <Card className='w-full max-lg:bg-card/0 max-lg:border-0 max-lg:shadow-none overflow-hidden'>
