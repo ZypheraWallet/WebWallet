@@ -11,14 +11,14 @@ import { Users, Wallet, Wallet2 } from 'lucide-react';
 
 const AccountsCard = () => {
     return (
-        <Card className='lg:w-1/2 h-max max-lg:bg-card/20 max-lg:border-0 max-lg:shadow-none max-lg:py-0'>
+        <Card className='lg:w-2/3 h-max max-lg:bg-card/20 max-lg:border-0 max-lg:shadow-none max-lg:py-0'>
             <CardHeader className='max-lg:hidden'>
                 <CardTitle>Счета</CardTitle>
                 <CardAction>
                     <Button variant={'link'} size={'sm'}><Wallet2/>Новый продукт</Button>
                 </CardAction>
             </CardHeader>
-            <CardContent className='w-full max-lg:flex lg:grid lg:grid-cols-2 max-lg:flex-col justify-center gap-3 lg:justify-between max-lg:px-0'>
+            <CardContent className='w-full max-lg:flex lg:grid lg:grid-cols-2 xl:grid-cols-3 max-lg:flex-col justify-center gap-3 lg:justify-between max-lg:px-0'>
                 <div className='p-3 w-full h-20 bg-accent/50 rounded-xl flex justify-between items-center'>
                     <div className='flex gap-3 items-center'>
                         <div className='rounded-4xl p-3 bg-accent/80'>

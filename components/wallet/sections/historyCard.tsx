@@ -5,53 +5,34 @@ import {
     CardAction,
     CardHeader,
     CardTitle,
+    CardDescription,
 } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
-import { ArrowUpRight, ArrowDownLeft, History } from "lucide-react";
+import { History } from "lucide-react";
 
-const transactions = [
-    { id: 1, type: "in", amount: "250 TON", date: "24.08.2025", from: "@alex" },
-    { id: 2, type: "out", amount: "75 TON", date: "23.08.2025", to: "@maria" },
-    { id: 3, type: "in", amount: "0.5 BTC", date: "22.08.2025", from: "@exchange" },
-];
 
 const HistoryCard = () => {
     return (
-        <Card className="lg:w-1/2 rounded-2xl max-lg:bg-card/50 shadow-sm border border-border backdrop-blur">
+        <Card className="lg:w-1/3 rounded-2xl max-lg:bg-card/50 shadow-sm border border-border backdrop-blur">
             <CardHeader>
-                <CardTitle className="text-lg font-medium">История операций</CardTitle>
-                <CardAction>
-                    <Button variant={'link'} size={'sm'}><History />История операций</Button>
-                </CardAction>
+                <CardTitle>Операции</CardTitle>
+                {/* <CardAction>
+                    <Button variant={'link'} size={'sm'}><History />Все операции</Button>
+                </CardAction> */}
             </CardHeader>
-            <CardContent className="space-y-2">
-                <ul className="divide-y divide-border">
-                    {transactions.map((tx) => (
-                        <li
-                            key={tx.id}
-                            className="flex items-center justify-between py-3"
-                        >
-                            <div className="flex items-center gap-3">
-                                {tx.type === "in" ? (
-                                    <ArrowDownLeft className="text-green-500 w-5 h-5" />
-                                ) : (
-                                    <ArrowUpRight className="text-red-500 w-5 h-5" />
-                                )}
-                                <div className="flex flex-col">
-                                    <span className="font-medium text-sm">
-                                        {tx.amount}
-                                    </span>
-                                    <span className="text-xs text-muted-foreground">
-                                        {tx.date}{" "}
-                                        {tx.type === "in"
-                                            ? `от ${tx.from}`
-                                            : `к ${tx.to}`}
-                                    </span>
-                                </div>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
+            <CardContent className='grid grid-cols-2 lg:grid-cols-3 gap-3 justify-between'>
+                <div className='w-full max-lg:col-span-2 bg-accent rounded-xl p-3 space-y-2'>
+                    <p className='text-lg font-medium'>Все операции</p>
+                    <p className='font-mono text-xs'>132.000,00₽</p>
+                </div>
+                <div className='w-full bg-accent rounded-xl p-3 space-y-2'>
+                    <p className='text-lg font-medium'>Траты</p>
+                    <p className='font-mono text-xs'>32.000,00₽</p>
+                </div>
+                <div className='w-full bg-accent rounded-xl p-3 space-y-2'>
+                    <p className='text-lg font-medium'>Доходы</p>
+                    <p className='font-mono text-xs'>50.000,00₽</p>
+                </div>
             </CardContent>
         </Card>
     );
