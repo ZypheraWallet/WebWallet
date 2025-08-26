@@ -14,7 +14,7 @@ import { Users, Wallet, Wallet2 } from 'lucide-react';
 import { useBalanceStore } from '@/store/wallet/balanceStore';
 
 const AccountsCard = () => {
-    const { showBalance } = useBalanceStore();
+    const { showBalance, currencySymbol } = useBalanceStore();
 
     return (
         <Card className='lg:w-2/3 h-max max-lg:bg-card/20 max-lg:border-0 max-lg:shadow-none max-lg:py-0'>
@@ -37,7 +37,7 @@ const AccountsCard = () => {
                     </div>
                     <div className='flex flex-col items-end'>
                         <p className={`${showBalance? '' : 'blur-xs'} duration-500 text-sm`}>
-                            400.000,00₽
+                            400.000,00{currencySymbol}
                         </p>
                         <p className={`${showBalance? '' : 'blur-xs'} duration-500 text-sm text-muted-foreground`}>
                             50 TON
@@ -57,7 +57,7 @@ const AccountsCard = () => {
                     </div>
                     <div className='flex flex-col items-end'>
                         <p className={`${showBalance? '' : 'blur-xs'} duration-500 text-sm`}>
-                            10.000,00₽
+                            10.000,00{currencySymbol}
                         </p>
                         <p className={`${showBalance? '' : 'blur-xs'} duration-500 text-sm text-muted-foreground`}>
                             10 TON
