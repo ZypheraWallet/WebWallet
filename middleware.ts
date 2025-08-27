@@ -54,6 +54,7 @@ export async function middleware(req: NextRequest) {
             path: '/',
             maxAge: 15 * 60,
             sameSite: 'lax',
+            domain: '.zyphera.vercel.app',
             secure: true,
         })
 
@@ -64,6 +65,7 @@ export async function middleware(req: NextRequest) {
             path: '/',
             maxAge: 30 * 24 * 60 * 60,
             sameSite: 'lax',
+            domain: '.zyphera.vercel.app',
             secure: true,
         })
 
