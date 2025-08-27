@@ -33,10 +33,7 @@ export async function middleware(req: NextRequest) {
         const apiUrl = 'https://api.zyphera.vercel.app/api/v1/auth/session/refresh'
         const res = await fetch(apiUrl, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Cookie': `zyphera_refresh=${refreshToken}`
-            },
+            headers: { 'Cookie': `zyphera_refresh=${refreshToken}` },
         })
 
         if (!res.ok) throw new Error('Failed to refresh token')
