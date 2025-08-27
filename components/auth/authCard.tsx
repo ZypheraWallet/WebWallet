@@ -14,7 +14,7 @@ const AuthCard = () => {
 
     const handleGoogleLogin = async () => {
         try {
-            const res = await fetch('https://main-server-gray.vercel.app/api/v1/auth/providers/google/getLink', {
+            const res = await fetch('https://api.zyphera.vercel.app/api/v1/auth/providers/google/getLink', {
                 method: 'GET',
                 credentials: 'include',
             })
