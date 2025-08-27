@@ -41,6 +41,7 @@ export async function middleware(req: NextRequest) {
 
         const data = await res.json()
         const newAccessToken = data.accessToken
+        const newRefreshToken = data.newRefreshToken
 
         const response = NextResponse.next()
         response.cookies.set({
@@ -49,6 +50,15 @@ export async function middleware(req: NextRequest) {
             httpOnly: false,
             path: '/',
             maxAge: 15 * 60,
+            sameSite: 'lax',
+            secure: true,
+        })
+        response.cookies.set({
+            name: 'zyphera_refresh',
+            value: newRefreshToken || '',
+            httpOnly: false,
+            path: '/',
+            maxAge: 30 * 24 * 60 * 60,
             sameSite: 'lax',
             secure: true,
         })
