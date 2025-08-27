@@ -46,7 +46,7 @@ export async function middleware(req: NextRequest) {
         const response = NextResponse.next()
         response.cookies.set({
             name: 'zyphera_access',
-            value: accessToken || '',
+            value: newAccessToken || '',
             httpOnly: false,
             path: '/',
             maxAge: 15 * 60,
