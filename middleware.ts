@@ -13,9 +13,7 @@ export async function middleware(req: NextRequest) {
     const accessToken = req.cookies.get('zyphera_access')?.value
 
     if (!refreshToken) {
-        const url = req.nextUrl.clone()
-        url.pathname = '/auth'
-        return NextResponse.redirect(url)
+        return NextResponse.redirect(new URL('/auth', req.url))
     }
 
     if (accessToken) {
@@ -27,6 +25,7 @@ export async function middleware(req: NextRequest) {
                 return NextResponse.next()
             }
         } catch (err) {
+            // Ignore error
         }
     }
 
@@ -34,7 +33,10 @@ export async function middleware(req: NextRequest) {
         const apiUrl = 'https://api.zyphera.vercel.app/api/v1/auth/session/refresh'
         const res = await fetch(apiUrl, {
             method: 'POST',
-            headers: { Cookie: `zyphera_refresh=${refreshToken}` },
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': `zyphera_refresh=${refreshToken}`
+            },
         })
 
         if (!res.ok) throw new Error('Failed to refresh token')
@@ -44,30 +46,30 @@ export async function middleware(req: NextRequest) {
         const newRefreshToken = data.newRefreshToken
 
         const response = NextResponse.next()
+
         response.cookies.set({
             name: 'zyphera_access',
-            value: newAccessToken || '',
-            httpOnly: false,
+            value: newAccessToken,
+            httpOnly: true,
             path: '/',
             maxAge: 15 * 60,
             sameSite: 'lax',
-            domain: '.zyphera.vercel.app',
             secure: true,
         })
+
         response.cookies.set({
             name: 'zyphera_refresh',
-            value: newRefreshToken || '',
-            httpOnly: false,
+            value: newRefreshToken,
+            httpOnly: true,
             path: '/',
             maxAge: 30 * 24 * 60 * 60,
             sameSite: 'lax',
-            domain: '.zyphera.vercel.app',
             secure: true,
         })
+
         return response
-    } catch {
-        const url = req.nextUrl.clone()
-        url.pathname = '/auth'
-        return NextResponse.redirect(url)
+    } catch (error) {
+        console.error('Token refresh failed:', error)
+        return NextResponse.redirect(new URL('/auth', req.url))
     }
 }
