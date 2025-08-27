@@ -35,7 +35,6 @@ export async function middleware(req: NextRequest) {
         const res = await fetch(apiUrl, {
             method: 'POST',
             headers: { Cookie: `zyphera_refresh=${refreshToken}` },
-            credentials: 'include',
         })
 
         if (!res.ok) throw new Error('Failed to refresh token')
