@@ -11,6 +11,26 @@ import { FcGoogle } from "react-icons/fc";
 import { Button } from "@/components/ui/button";
 
 const AuthCard = () => {
+
+    const handleGoogleLogin = async () => {
+        try {
+            const res = await fetch('https://main-server-gray.vercel.app/api/v1/auth/providers/google/getLink', {
+                method: 'GET',
+                credentials: 'include',
+            })
+
+            if (!res.ok) throw new Error('Failed to get Google login link')
+
+            const data = await res.json()
+            const { url } = data
+
+            window.location.href = url
+        } catch (err) {
+            console.error(err)
+            alert('Ошибка при авторизации через Google')
+        }
+    }
+
     return (
         <Card className="w-full max-w-sm">
             <CardHeader className='text-center'>
@@ -22,7 +42,7 @@ const AuthCard = () => {
                 <Button
                     variant="outline"
                     size={'lg'}
-                    onClick={() => window.location.href = "/api/auth/signin/google"}
+                    onClick={handleGoogleLogin}
                 >
                     Войти через Google <FcGoogle />
                 </Button>
