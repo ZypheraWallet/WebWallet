@@ -22,7 +22,6 @@ export async function middleware(req: NextRequest) {
     const url = req.nextUrl.clone()
     const pathname = url.pathname
 
-    // получение куки (NextRequest.cookies API)
     const refreshToken = req.cookies.get('zyphera_refresh')?.value ?? null
     const accessToken = req.cookies.get('zyphera_access')?.value ?? null
 
@@ -30,26 +29,20 @@ export async function middleware(req: NextRequest) {
         req.nextUrl.hostname.endsWith('vercel.app') ||
         process.env.NODE_ENV === 'production'
 
-    // Если пользователь пытается открыть /auth и у него валидный accessToken — отправляем на главную
     if (pathname.startsWith('/auth')) {
         if (isTokenValid(accessToken)) {
             return NextResponse.redirect(new URL('/', req.url))
         }
-        // иначе — позволяем открыть страницу /auth (без попыток рефреша), чтобы избежать лишних вызовов
         return NextResponse.next()
     }
 
-    // Для всех остальных страниц:
-    // 1) если есть валидный accessToken — идём дальше
     if (isTokenValid(accessToken)) {
         return NextResponse.next()
     }
 
-    // 2) если accessToken не валидный/отсутствует, но есть refreshToken — пробуем один запрос к refresh endpoint
     if (refreshToken) {
         try {
-            // Отправляем один POST запрос в ваш API. Не используем относительный путь чтобы избежать проблем в edge.
-            // В проде должен быть абсолютный адрес (в переменных окружения можно положить ROOT_URL).
+
             const apiUrl = `${process.env.SERVER_URL}/api/v1/auth/session/refresh`
 
             console.log(apiUrl)
