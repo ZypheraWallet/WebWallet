@@ -64,48 +64,41 @@ export async function middleware(req: NextRequest) {
 
             const response = NextResponse.next()
 
-            const cookieOptions: any = {
+            const domainFromEnv = process.env.COOKIE_DOMAIN?.replace(/^\./, '')
+            const domain = isProd ? (domainFromEnv || req.nextUrl.hostname) : undefined
+
+            const crossSubdomains = Boolean(process.env.COOKIE_CROSS_SUBDOMAINS)
+
+            const accessCookieOpts: any = {
                 path: '/',
                 httpOnly: true,
-                sameSite: 'lax',
+                sameSite: crossSubdomains ? 'none' : 'lax',
                 maxAge: 15 * 60,
+                ...(isProd ? { secure: true } : {}),
+                ...(domain ? { domain } : {}),
             }
 
+            const refreshCookieOpts: any = {
+                path: '/',
+                httpOnly: true,
+                sameSite: crossSubdomains ? 'none' : 'lax',
+                maxAge: 30 * 24 * 60 * 60,
+                ...(isProd ? { secure: true } : {}),
+                ...(domain ? { domain } : {}),
+            }
+
+            // Устанавливаем каждую куки ровно один раз
             response.cookies.set({
                 name: 'zyphera_access',
                 value: newAccessToken,
-                ...cookieOptions,
+                ...accessCookieOpts,
             })
 
-            const refreshCookieOptions: any = {
-                path: '/',
-                httpOnly: true,
-                sameSite: 'lax',
-                maxAge: 30 * 24 * 60 * 60,
-            }
-
-            if (isProd) {
-                refreshCookieOptions.secure = true
-                refreshCookieOptions.domain = '.zyphera.vercel.app'
-                response.cookies.set({
-                    name: 'zyphera_access',
-                    value: newAccessToken,
-                    ...cookieOptions,
-                    secure: true,
-                    domain: '.zyphera.vercel.app',
-                })
-                response.cookies.set({
-                    name: 'zyphera_refresh',
-                    value: newRefreshToken,
-                    ...refreshCookieOptions,
-                })
-            } else {
-                response.cookies.set({
-                    name: 'zyphera_refresh',
-                    value: newRefreshToken,
-                    ...refreshCookieOptions,
-                })
-            }
+            response.cookies.set({
+                name: 'zyphera_refresh',
+                value: newRefreshToken,
+                ...refreshCookieOpts,
+            })
 
             return response
         } catch (err) {
