@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Card,
     CardHeader,
@@ -9,12 +9,31 @@ import {
 } from "@/components/ui/card";
 import { FcGoogle } from "react-icons/fc";
 import { Button } from "@/components/ui/button";
+import { AppWindow, LoaderCircle } from 'lucide-react';
+
+import { useRouter } from 'next/navigation'
+import { isLoggedIn, setSession, getSession, isAccessTokenValid } from '@/utils/session';
+
+type LoginButton = {
+    state: 'loading' | 'expectation' | null
+}
 
 const AuthCard = () => {
+    const router = useRouter()
+
+    const [googleButton, EditGoogleButton] = useState<LoginButton>({ state: null })
+
+    useEffect(() => {
+        if (isLoggedIn() && isAccessTokenValid(getSession()?.accessToken)) {
+            router.replace('/')
+        }
+    }, [router])
 
     const handleGoogleLogin = async () => {
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}` + '/api/v1/auth/providers/google/getLink', {
+            EditGoogleButton({ state: 'loading' })
+
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/auth/providers/google/getLink`, {
                 method: 'GET',
                 credentials: 'include',
             })
@@ -24,22 +43,34 @@ const AuthCard = () => {
             const data = await res.json()
             const { url } = data
 
+            EditGoogleButton({ state: 'expectation' })
+
             const popup = window.open(
                 url,
                 "googleLogin",
                 "width=500,height=600"
             )
 
+            if (!popup) {
+                EditGoogleButton({ state: null })
+                return
+            }
+
             const listener = (event: MessageEvent) => {
                 if (event.origin !== process.env.NEXT_PUBLIC_SERVER_URL) return
                 if (event.data.type === "google-auth-success") {
-                    console.log("Tokens:", event.data)
 
-                    localStorage.setItem("zyphera_access", event.data.accessToken)
-                    localStorage.setItem("zyphera_refresh", event.data.refreshToken)
+                    setSession({
+                        accessToken: event.data.accessToken,
+                        refreshToken: event.data.refreshToken
+                    })
 
                     window.removeEventListener("message", listener)
                     popup?.close()
+
+                    EditGoogleButton({ state: null })
+
+                    router.replace('/')
                 }
             }
 
@@ -47,6 +78,7 @@ const AuthCard = () => {
 
         } catch (err) {
             console.error(err)
+            EditGoogleButton({ state: null })
             alert('Ошибка при авторизации через Google')
         }
     }
@@ -63,8 +95,26 @@ const AuthCard = () => {
                     variant="outline"
                     size={'lg'}
                     onClick={handleGoogleLogin}
+                    disabled={googleButton.state === 'loading' || googleButton.state === 'expectation'}
                 >
-                    Войти через Google <FcGoogle />
+                    {
+                        googleButton.state === 'loading' &&
+                        <>
+                            Загрузка <LoaderCircle className='animate-spin' />
+                        </>
+                    }
+                    {
+                        googleButton.state === 'expectation' &&
+                        <>
+                            Авторизируйтесь в окне <AppWindow />
+                        </>
+                    }
+                    {
+                        googleButton.state == null &&
+                        <>
+                            Войти через Google <FcGoogle />
+                        </>
+                    }
                 </Button>
                 <p className='text-center text-muted-foreground text-sm'>или</p>
                 <div>
