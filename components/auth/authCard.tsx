@@ -14,7 +14,7 @@ const AuthCard = () => {
 
     const handleGoogleLogin = async () => {
         try {
-            const res = await fetch('https://api.zyphera.vercel.app/api/v1/auth/providers/google/getLink', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}` + '/api/v1/auth/providers/google/getLink', {
                 method: 'GET',
                 credentials: 'include',
             })
@@ -24,7 +24,27 @@ const AuthCard = () => {
             const data = await res.json()
             const { url } = data
 
-            window.location.href = url
+            const popup = window.open(
+                url,
+                "googleLogin",
+                "width=500,height=600"
+            )
+
+            const listener = (event: MessageEvent) => {
+                if (event.origin !== process.env.NEXT_PUBLIC_FRONTEND_URL) return
+                if (event.data.type === "google-auth-success") {
+                    console.log("Tokens:", event.data)
+
+                    localStorage.setItem("zyphera_access", event.data.accessToken)
+                    localStorage.setItem("zyphera_refresh", event.data.refreshToken)
+
+                    window.removeEventListener("message", listener)
+                    popup?.close()
+                }
+            }
+
+            window.addEventListener("message", listener)
+
         } catch (err) {
             console.error(err)
             alert('Ошибка при авторизации через Google')
