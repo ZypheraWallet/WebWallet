@@ -31,7 +31,7 @@ const AuthCard = () => {
             )
 
             const listener = (event: MessageEvent) => {
-                if (event.origin !== process.env.NEXT_PUBLIC_FRONTEND_URL) return
+                if (event.origin !== process.env.NEXT_PUBLIC_SERVER_URL) return
                 if (event.data.type === "google-auth-success") {
                     console.log("Tokens:", event.data)
 
