@@ -59,22 +59,35 @@ export const isAccessTokenValid = (token?: string): boolean => {
 /**
  * Обновление accessToken через refreshToken
  */
-export const refreshSession = async (): Promise<boolean> => {
+export const refreshSession = async (): Promise<{ accessToken: string, refreshToken: string } | null> => {
     try {
+        const { refreshToken } = getSession() as SessionData;
+
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/auth/session/refresh`, {
             method: 'POST',
-            credentials: 'include', // cookies должны идти на сервер
-        })
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${refreshToken}`,
+            },
+        });
+
         if (!res.ok) throw new Error('Failed to refresh session')
         const data = await res.json()
+
         setSession({
             accessToken: data.accessToken,
-            refreshToken: data.refreshToken,
+            refreshToken: data.newRefreshToken,
         })
-        return true
+
+        return {
+            accessToken: data.accessToken,
+            refreshToken: data.newRefreshToken,
+        }
+
     } catch (err) {
         clearSession()
-        return false
+        window.location.replace(window.location.href);
+        return null
     }
 }
 
