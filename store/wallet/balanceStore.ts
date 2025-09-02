@@ -70,6 +70,6 @@ export const useBalanceStore = create<BalanceStore>((set, get) => ({
     },
 }));
 
-if (typeof window !== 'undefined' && window.location.pathname !== '/auth') {
+if (typeof window !== 'undefined') {
     useBalanceStore.getState().fetchBalance();
 }
