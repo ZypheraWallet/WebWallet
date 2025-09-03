@@ -16,6 +16,7 @@ interface BalanceStore {
     setBalance: (amount: number) => void;
     setCurrency: (currency: string) => void;
     fetchBalance: () => Promise<void>;
+    loadFromStorage: () => void;
 }
 
 const currencySymbols: Record<string, string> = {
@@ -26,29 +27,12 @@ const currencySymbols: Record<string, string> = {
     KZT: "₸",
 };
 
-let initialBalance = 0;
-let initialShowBalance = true;
-let initialCurrency = "RUB";
-
-if (typeof window !== 'undefined') {
-    try {
-        const saved = localStorage.getItem('zyphera_wallet');
-        if (saved) {
-            const parsed = JSON.parse(saved);
-            initialBalance = parsed.balance ?? 0;
-            initialShowBalance = parsed.showBalance ?? true;
-            initialCurrency = parsed.currency ?? "RUB";
-        }
-    } catch (e) {
-        console.error('Failed to parse localStorage', e);
-    }
-}
 
 export const useBalanceStore = create<BalanceStore>((set, get) => ({
-    balance: initialBalance,
-    currency: initialCurrency,
-    currencySymbol: currencySymbols[initialCurrency] || initialCurrency,
-    showBalance: initialShowBalance,
+    balance: 0,
+    currency: "RUB",
+    currencySymbol: "₽",
+    showBalance: true,
     isLoading: true,
     error: null,
 
@@ -99,6 +83,23 @@ export const useBalanceStore = create<BalanceStore>((set, get) => ({
                 isLoading: false
             });
             console.error('Failed to fetch balance', err);
+        }
+    },
+    loadFromStorage: () => {
+        try {
+            const saved = localStorage.getItem('zyphera_wallet');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                set({
+                    balance: parsed.balance ?? 0,
+                    showBalance: parsed.showBalance ?? true,
+                    currency: parsed.currency ?? "RUB",
+                    currencySymbol:
+                        currencySymbols[parsed.currency] || parsed.currency,
+                });
+            }
+        } catch (e) {
+            console.error('Failed to parse localStorage', e);
         }
     },
 }));

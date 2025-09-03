@@ -19,12 +19,13 @@ import { usePathname } from 'next/navigation';
 const BalanceCard = () => {
     const pathname = usePathname();
 
-    const { balance, currencySymbol, showBalance, isLoading, toggleBalanceVisibility, fetchBalance } = useBalanceStore();
+    const { balance, currencySymbol, showBalance, isLoading, toggleBalanceVisibility, fetchBalance, loadFromStorage } = useBalanceStore();
     const { intPart, fracPart } = formatBalanceParts(balance);
 
     useEffect(() => {
 
         if (pathname !== '/auth') {
+            loadFromStorage();
             fetchBalance();
 
             const interval = setInterval(() => {
