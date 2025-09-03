@@ -1,11 +1,15 @@
 "use client";
 import React from "react";
+import { usePathname } from "next/navigation";
 import { Button } from "../ui/button";
 import { Home, Wallet, Store, Compass } from "lucide-react";
 
 import Link from "next/link";
 
 const Navbar = () => {
+    const pathname = usePathname();
+    if (pathname === '/auth') return null;
+
     return (
         <header className="fixed lg:top-0 -bottom-1 left-0 w-full h-16 lg:border-b max-lg:border-t bg-background/50 backdrop-blur-sm z-30">
             <nav className="mx-auto container flex items-center justify-between h-full max-lg:hidden">

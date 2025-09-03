@@ -30,7 +30,7 @@ const BalanceCard = () => {
 
             const interval = setInterval(() => {
                 fetchBalance();
-            }, 30_000);
+            }, 20_000);
 
             return () => clearInterval(interval);
         }
