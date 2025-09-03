@@ -58,7 +58,7 @@ const BalanceCard = () => {
             <CardContent className='w-full max-lg:mt-9 h-full lg:flex items-center'>
                 <div className='max-lg:text-center font-mono space-y-3'>
                     <p className='text-muted-foreground text-xs lg:hidden' onClick={() => setCurrency('USD')}>Доступный баланс</p>
-                    <span onClick={() => setCurrency('RUB')} className={`duration-500 ${isLoading ? 'animate-pulse' : ''} ${balance >= 1000000 ? 'text-4xl 2xl:text-7xl xl:text-6xl lg:text-5xl' : 'text-5xl lg:text-6xl 2xl:text-8xl xl:text-7xl'} ${showBalance ? '' : 'blur-md lg:blur-xl'}`}>{intPart},<span className='text-4xl xl:text-6xl'>{fracPart}{currencySymbol}</span></span>
+                    <span onClick={() => setCurrency('KZT')} className={`duration-500 ${isLoading ? 'animate-pulse' : ''} ${balance >= 1000000 ? 'text-4xl 2xl:text-7xl xl:text-6xl lg:text-5xl' : 'text-5xl lg:text-6xl 2xl:text-8xl xl:text-7xl'} ${showBalance ? '' : 'blur-md lg:blur-xl'}`}>{intPart},<span className='text-4xl xl:text-6xl'>{fracPart}{currencySymbol}</span></span>
                 </div>
             </CardContent>
         </Card>
