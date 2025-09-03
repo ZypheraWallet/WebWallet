@@ -27,10 +27,9 @@ const BalanceCard = () => {
         if (pathname !== '/auth') {
             fetchBalance();
 
-            // и запускаем интервал
             const interval = setInterval(() => {
                 fetchBalance();
-            }, 30_000); // каждые 30 секунд
+            }, 30_000);
 
             return () => clearInterval(interval);
         }
