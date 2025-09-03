@@ -55,7 +55,7 @@ export const useBalanceStore = create<BalanceStore>()(
                     currencySymbol: currencySymbols[currency] || currency,
                 })
                 get().fetchBalance();
-                useBalanceStore.getState().fetchBalance()
+                useWalletsStore.getState().fetchWallets()
             },
             fetchBalance: async () => {
                 if (get().balance === 0) {
