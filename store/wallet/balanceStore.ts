@@ -4,6 +4,8 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { apiClient } from '@/lib/apiClient';
 
+import { useWalletsStore } from './walletsStore';
+
 interface BalanceStore {
     balance: number;
     currency: string;
@@ -47,12 +49,14 @@ export const useBalanceStore = create<BalanceStore>()(
                 set((state) => ({ showBalance: !state.showBalance })),
 
             setBalance: (amount) => set({ balance: amount }),
-            setCurrency: (currency) =>
+            setCurrency: (currency) => {
                 set({
                     currency,
                     currencySymbol: currencySymbols[currency] || currency,
-                }),
-
+                })
+                get().fetchBalance();
+                useBalanceStore.getState().fetchBalance()
+            },
             fetchBalance: async () => {
                 if (get().balance === 0) {
                     set({ isLoading: true, error: null });
