@@ -69,7 +69,3 @@ export const useBalanceStore = create<BalanceStore>((set, get) => ({
         }
     },
 }));
-
-if (typeof window !== 'undefined') {
-    useBalanceStore.getState().fetchBalance();
-}

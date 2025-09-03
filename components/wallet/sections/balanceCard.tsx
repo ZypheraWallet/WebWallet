@@ -14,10 +14,27 @@ import { Eye, EyeClosed } from 'lucide-react';
 
 import { useBalanceStore } from '@/store/wallet/balanceStore';
 import { formatBalanceParts } from '@/utils/formatBalance';
+import { usePathname } from 'next/navigation';
 
 const BalanceCard = () => {
-    const { balance, currencySymbol, showBalance, isLoading, toggleBalanceVisibility } = useBalanceStore();
+    const pathname = usePathname();
+
+    const { balance, currencySymbol, showBalance, isLoading, toggleBalanceVisibility, fetchBalance } = useBalanceStore();
     const { intPart, fracPart } = formatBalanceParts(balance);
+
+    useEffect(() => {
+
+        if (pathname !== '/auth') {
+            fetchBalance();
+
+            // и запускаем интервал
+            const interval = setInterval(() => {
+                fetchBalance();
+            }, 30_000); // каждые 30 секунд
+
+            return () => clearInterval(interval);
+        }
+    }, [pathname, fetchBalance]);
 
     return (
         <Card className='w-full max-lg:bg-card/0 max-lg:border-0 max-lg:shadow-none overflow-hidden'>

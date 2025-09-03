@@ -1,3 +1,4 @@
+
 import React from 'react';
 import BalanceCard from '@/components/wallet/sections/balanceCard';
 import FastAction from '@/components/wallet/sections/fastAction';
