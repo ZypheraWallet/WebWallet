@@ -79,7 +79,6 @@ const AuthPage = () => {
                     />
                     <QrCodePlaceholder />
                 </AuthCard>
-
             </section>
         </>
     );
