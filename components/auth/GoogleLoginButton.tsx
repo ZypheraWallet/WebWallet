@@ -8,7 +8,7 @@ interface GoogleLoginButtonProps {
     onClick: () => void;
 }
 
-export const GoogleLoginButton = ({ state, onClick }: GoogleLoginButtonProps) => {
+const GoogleLoginButton = ({ state, onClick }: GoogleLoginButtonProps) => {
     return (
         <>
             <Button

@@ -9,7 +9,7 @@ interface CreateWalletFormProps {
     isLoading: boolean;
 }
 
-export const CreateWalletForm = ({ onSubmit, onAutoCreate, isLoading }: CreateWalletFormProps) => {
+const CreateWalletForm = ({ onSubmit, onAutoCreate, isLoading }: CreateWalletFormProps) => {
     const [walletName, setWalletName] = useState('');
 
     const handleSubmit = (e: React.FormEvent) => {

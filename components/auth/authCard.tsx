@@ -11,7 +11,7 @@ interface AuthCardProps {
     children: React.ReactNode;
 }
 
-export const AuthCard = ({ children }: AuthCardProps) => {
+const AuthCard = ({ children }: AuthCardProps) => {
     return (
         <Card className="w-full max-w-sm">
             <CardHeader className='text-center'>
