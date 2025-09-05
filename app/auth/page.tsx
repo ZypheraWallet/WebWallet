@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'
-import AuthCard from '../../components/auth/AuthCard';
+import AuthCard from '@/components/auth/Card';
 import GoogleLoginButton from '@/components/auth/GoogleLoginButton';
 import QrCodePlaceholder from '@/components/auth/QrCodePlaceholder';
 import { isLoggedIn, setSession, getSession, isAccessTokenValid } from '@/utils/session';
