@@ -5,6 +5,7 @@ import AuthCard from '@/components/auth/Card';
 import GoogleLoginButton from '@/components/auth/GoogleLoginButton';
 import QrCodePlaceholder from '@/components/auth/QrCodePlaceholder';
 import { isLoggedIn, setSession, getSession, isAccessTokenValid } from '@/utils/session';
+import { toast } from "sonner"
 
 const AuthPage = () => {
     const router = useRouter()
@@ -65,7 +66,7 @@ const AuthPage = () => {
         } catch (err) {
             console.error(err)
             setGoogleButtonState(null)
-            alert('Ошибка при авторизации через Google')
+            toast.error('Ошибка при авторизации через Google')
         }
     }
 

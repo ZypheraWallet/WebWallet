@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { headers } from 'next/headers';
+import { Toaster } from "@/components/ui/sonner"
 
 import Navbar from "@/components/props/Navbar";
 import Preloader from "@/components/props/Preloader";
@@ -35,6 +35,8 @@ export default async function RootLayout({
                 <Navbar />
 
                 <Preloader />
+
+                <Toaster richColors />
 
                 {children}
             </body>
