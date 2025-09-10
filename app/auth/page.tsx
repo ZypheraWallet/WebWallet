@@ -60,6 +60,15 @@ const AuthPage = () => {
 
             window.addEventListener("message", listener)
 
+            const checkPopupClosed = setInterval(() => {
+                if (popup.closed) {
+                    clearInterval(checkPopupClosed);
+                    window.removeEventListener("message", listener);
+                    setGoogleButtonState(null);
+                    toast.warning("Авторизация прервана");
+                }
+            }, 500);
+
         } catch (err) {
             console.error(err)
             setGoogleButtonState(null)
