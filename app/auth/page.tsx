@@ -6,6 +6,7 @@ import GoogleLoginButton from '@/components/auth/GoogleLoginButton';
 import QrCodePlaceholder from '@/components/auth/QrCodePlaceholder';
 import { isLoggedIn, setSession, getSession, isAccessTokenValid } from '@/utils/session';
 import { toast } from "sonner"
+import { openPopupCentered } from '@/utils/window';
 
 const AuthPage = () => {
     const router = useRouter()
@@ -33,11 +34,7 @@ const AuthPage = () => {
 
             setGoogleButtonState('expectation')
 
-            const popup = window.open(
-                url,
-                "googleLogin",
-                "width=500,height=600"
-            )
+            const popup = openPopupCentered(url, "googleLogin", 500, 600);
 
             if (!popup) {
                 setGoogleButtonState(null)
