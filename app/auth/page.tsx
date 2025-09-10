@@ -45,6 +45,8 @@ const AuthPage = () => {
                 if (event.origin !== process.env.NEXT_PUBLIC_SERVER_URL) return
                 if (event.data.type === "google-auth-success") {
 
+                    clearInterval(checkPopupClosed);
+
                     setSession({
                         accessToken: event.data.accessToken,
                         refreshToken: event.data.refreshToken
