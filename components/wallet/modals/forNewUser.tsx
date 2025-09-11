@@ -45,24 +45,24 @@ const ForNewUser = () => {
         <div className={`fixed inset-0 z-40 bg-background p-6 flex gap-6 max-lg:flex-col justify-between duration-500 ${transperent ? 'opacity-0 pointer-events-none' : ''}`}>
             <div className='relative'>
                 <p className='font-mono text-sm text-center'>{steps} из 3</p>
-                <p className={`text-3xl font-bold mt-3 absolute duration-500 ${steps === 1 ? '' : '-translate-x-full opacity-0'}`}>Выберите название вашему кошельку и валюту</p>
+                <p className={`text-4xl font-bold mt-3 absolute duration-500 ${steps === 1 ? '' : '-translate-x-full opacity-0'}`}>Настройте свой кошелёк</p>
                 <p className={`text-4xl font-bold mt-3 absolute duration-500 ${steps === 2 ? '' : '-translate-x-full opacity-0'}`}>Выберите аватар и имя</p>
                 <p className={`text-4xl font-bold mt-3 absolute duration-500 ${steps === 3 ? '' : '-translate-x-full opacity-0'}`}>Выберите тег для переводов</p>
             </div>
             <div className='relative h-max'>
                 <div className={`absolute w-full -translate-y-6 duration-500 ${steps === 1 ? '' : '-translate-x-full opacity-0'}  `}>
-                    <Select onValueChange={handleCurrencyChange}>
-                        <SelectTrigger className="w-full mb-6">
-                            <SelectValue placeholder="Валюта кошелька" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="USD">USD $</SelectItem>
-                            <SelectItem value="RUB">RUB ₽</SelectItem>
-                            <SelectItem value="KZT">KZT ₸</SelectItem>
-                        </SelectContent>
-                    </Select>
                     <div className='space-y-3'>
                         <Input placeholder='Название кошелька' className='h-13' value={walletName} onChange={(e) => setWalletName(e.target.value)}></Input>
+                        <Select onValueChange={handleCurrencyChange}>
+                            <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Валюта кошелька" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="USD">USD $</SelectItem>
+                                <SelectItem value="RUB">RUB ₽</SelectItem>
+                                <SelectItem value="KZT">KZT ₸</SelectItem>
+                            </SelectContent>
+                        </Select>
                         <div>
                             <WalletCard walletCurrency='TON' walletName={walletName} />
                         </div>
