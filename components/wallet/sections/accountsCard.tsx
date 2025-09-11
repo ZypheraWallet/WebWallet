@@ -59,7 +59,7 @@ const AccountsCard = () => {
                         </>
                     ) : (
                         wallets.map((wallet) => (
-                            <WalletCard wallet={wallet} />
+                            <WalletCard key={wallet._id} wallet={wallet} />
                         ))
                     )}
 

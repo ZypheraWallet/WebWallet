@@ -15,7 +15,6 @@ const WalletCard = ({ wallet, walletName, walletCurrency }: WalletProps) => {
 
     return (
         <div
-            key={wallet?._id}
             className="p-3 w-full h-20 bg-accent/50 rounded-xl flex justify-between items-center"
         >
             <div className="flex gap-3 items-center">
