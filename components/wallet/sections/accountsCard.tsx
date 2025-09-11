@@ -8,9 +8,10 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { Button } from '@/components/ui/button';
+import Wallet from '../props/wallet';
 import CreateWalletOverlay from '../modals/newProducts';
 import ForNewUser from '../modals/forNewUser';
-import { Wallet, Wallet2 } from 'lucide-react';
+import { Wallet2 } from 'lucide-react';
 
 import { useBalanceStore } from '@/store/wallet/balanceStore';
 import { useWalletsStore } from '@/store/wallet/walletsStore';
@@ -18,7 +19,6 @@ import { useCreateWalletOverlayStore } from '@/store/modals/walletsModalStore';
 import { useNewUserOverlayStore } from '@/store/modals/walletsModalStore';
 
 const AccountsCard = () => {
-    const { showBalance, currencySymbol } = useBalanceStore();
     const { wallets, fetchWallets, loading } = useWalletsStore();
     const { openOverlay: openCreateWalletOverlay } = useCreateWalletOverlayStore();
     const { openOverlay: openNewUserOverlay } = useNewUserOverlayStore();
@@ -60,31 +60,7 @@ const AccountsCard = () => {
                         </>
                     ) : (
                         wallets.map((wallet) => (
-
-                            <div
-                                key={wallet._id}
-                                className="p-3 w-full h-20 bg-accent/50 rounded-xl flex justify-between items-center"
-                            >
-                                <div className="flex gap-3 items-center">
-                                    <div className="rounded-4xl p-3 bg-accent/80">
-                                        <Wallet />
-                                    </div>
-                                    <div>
-                                        <p className="font-medium text-sm truncate">
-                                            {wallet.name}
-                                        </p>
-                                        <p className="text-xs text-muted-foreground">{wallet.currency} кошелёк</p>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col items-end">
-                                    <p className={`${showBalance ? '' : 'blur-xs'} duration-500 text-sm`}>
-                                        {parseFloat(wallet.convertedBalance.toFixed(2)).toLocaleString('de-DE')} {currencySymbol}
-                                    </p>
-                                    <p className={`${showBalance ? '' : 'blur-xs'} duration-500 text-sm text-muted-foreground`}>
-                                        {wallet.balance} {wallet.currency}
-                                    </p>
-                                </div>
-                            </div>
+                            <Wallet wallet={wallet} />
                         ))
                     )}
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import Wallet from '../props/wallet';
 import { useNewUserOverlayStore } from '@/store/modals/walletsModalStore';
 import { MoveLeft } from 'lucide-react';
 
@@ -8,6 +9,8 @@ const ForNewUser = () => {
     const { open, closeOverlay } = useNewUserOverlayStore();
     const [transperent, setTransperent] = useState<boolean>(false);
     const [steps, setSteps] = useState<1 | 2 | 3>(1)
+
+    const [walletName, setWalletName] = useState<string>('Wallet #1')
 
     if (!open) return null
 
@@ -33,9 +36,9 @@ const ForNewUser = () => {
             </div>
             <div className='relative'>
                 <div className={`absolute w-full duration-500 ${steps === 1 ? '' : '-translate-x-full opacity-0'}`}>
-                    <Input placeholder='Название кошелька' className='h-13'></Input>
+                    <Input placeholder='Название кошелька' className='h-13' value={walletName} onChange={(e) => setWalletName(e.target.value)}></Input>
                     <div className='mt-3 space-y-1'>
-
+                        <Wallet walletCurrency='TON' walletName={walletName} />
                     </div>
                 </div>
             </div>
