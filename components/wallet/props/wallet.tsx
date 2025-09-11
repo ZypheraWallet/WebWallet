@@ -9,7 +9,7 @@ interface WalletProps {
     walletCurrency?: string
 }
 
-const Wallet = ({ wallet, walletName, walletCurrency }: WalletProps) => {
+const WalletCard = ({ wallet, walletName, walletCurrency }: WalletProps) => {
 
     const { showBalance, currencySymbol } = useBalanceStore();
 
@@ -41,4 +41,4 @@ const Wallet = ({ wallet, walletName, walletCurrency }: WalletProps) => {
     );
 };
 
-export default Wallet;
+export default WalletCard;

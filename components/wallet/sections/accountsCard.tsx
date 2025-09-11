@@ -8,12 +8,11 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { Button } from '@/components/ui/button';
-import Wallet from '../props/wallet';
+import WalletCard from '../props/wallet';
 import CreateWalletOverlay from '../modals/newProducts';
 import ForNewUser from '../modals/forNewUser';
 import { Wallet2 } from 'lucide-react';
 
-import { useBalanceStore } from '@/store/wallet/balanceStore';
 import { useWalletsStore } from '@/store/wallet/walletsStore';
 import { useCreateWalletOverlayStore } from '@/store/modals/walletsModalStore';
 import { useNewUserOverlayStore } from '@/store/modals/walletsModalStore';
@@ -60,7 +59,7 @@ const AccountsCard = () => {
                         </>
                     ) : (
                         wallets.map((wallet) => (
-                            <Wallet wallet={wallet} />
+                            <WalletCard wallet={wallet} />
                         ))
                     )}
 
