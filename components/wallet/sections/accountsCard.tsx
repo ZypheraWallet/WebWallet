@@ -24,7 +24,7 @@ const AccountsCard = () => {
 
     useEffect(() => {
         fetchWallets();
-        if (wallets.length === 0) {
+        if (true) {
             openNewUserOverlay()
         }
     }, [fetchWallets]);
