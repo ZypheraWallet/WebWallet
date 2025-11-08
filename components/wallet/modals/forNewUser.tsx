@@ -60,15 +60,16 @@ const ForNewUser = () => {
 
     return (
         <div className={`fixed inset-0 z-40 lg:flex duration-500 ${transperent ? 'opacity-0 pointer-events-none' : ''}`}>
-            <div className='bg-background p-6 flex gap-6 flex-col justify-between lg:w-2xl h-screen'>
+            <div className='h-screen w-3/4 bg-muted'></div>
+            <div className='bg-background p-6 flex gap-6 flex-1 flex-col justify-between h-screen'>
                 <div className='relative'>
                     <p className='font-mono text-sm text-center'>{steps} из 3</p>
-                    <p className={`text-4xl font-bold mt-3 absolute duration-500 ${steps === 1 ? '' : '-translate-x-full opacity-0'}`}>Настройте свой кошелёк</p>
-                    <p className={`text-4xl font-bold mt-3 absolute duration-500 ${steps === 2 ? '' : '-translate-x-full opacity-0'}`}>Выберите аватар и имя</p>
-                    <p className={`text-4xl font-bold mt-3 absolute duration-500 ${steps === 3 ? '' : '-translate-x-full opacity-0'}`}>Выберите тег для переводов</p>
+                    <p className={`text-4xl font-bold mt-3 absolute duration-500 ${steps === 1 ? '' : 'lg:translate-x-full -translate-x-full opacity-0'}`}>Настройте свой кошелёк</p>
+                    <p className={`text-4xl font-bold mt-3 absolute duration-500 ${steps === 2 ? '' : 'lg:translate-x-full -translate-x-full opacity-0'}`}>Выберите аватар и имя</p>
+                    <p className={`text-4xl font-bold mt-3 absolute duration-500 ${steps === 3 ? '' : 'lg:translate-x-full -translate-x-full opacity-0'}`}>Выберите тег для переводов</p>
                 </div>
                 <div className='relative h-max'>
-                    <div className={`absolute w-full -translate-y-6 duration-500 ${steps === 1 ? '' : '-translate-x-full opacity-0'}  `}>
+                    <div className={`absolute w-full -translate-y-6 duration-500 ${steps === 1 ? '' : 'lg:translate-x-full -translate-x-full opacity-0'}  `}>
                         <div className='space-y-3'>
                             <Input placeholder='Название кошелька' className='h-13' maxLength={16} value={walletName} onChange={(e) => handleChangeWalletName(e.target.value)}></Input>
                             <Select onValueChange={handleCurrencyChange}>
@@ -94,7 +95,6 @@ const ForNewUser = () => {
                     <Button variant={'link'} onClick={() => handlePrev()} className={`duration-500 ${steps === 1 && 'translate-y-[180%]'}`}><MoveLeft />Назад</Button>
                 </div>
             </div>
-            <div className='h-screen w-full bg-muted'></div>
         </div >
     );
 };
